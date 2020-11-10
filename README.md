@@ -13,7 +13,7 @@ Now you can see this posts in the app 'UserDataMonitor'.
 Take this app here and modify it to your needs.
 1. Be sure, that your app and this one resides in the same App Group.
 
-    public static let containerSharedGroup: String = "group.com.YourGroup"
+    [public static let containerSharedGroup: String = "group.com.YourGroup"]
     
 2. Put the swift file 'UserStorageProvider.swift' in your project.
 3. Use the following line to post a log entry:
