@@ -132,7 +132,15 @@ class UserStorageProvider: ObservableObject {
     
     
     private func GetAppstate() -> AppStates {
-        switch UIApplication.shared.applicationState {
+        var state: UIApplication.State?
+        if Thread.isMainThread {
+            state = UIApplication.shared.applicationState
+        } else {
+          DispatchQueue.main.sync {
+            state = UIApplication.shared.applicationState
+          }
+        }
+        switch state {
             case .background:
                 return .background
             case .inactive:
