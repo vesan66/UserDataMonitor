@@ -133,13 +133,11 @@ class UserStorageProvider: ObservableObject {
     
     private func GetAppstate() -> AppStates {
         var state: UIApplication.State?
-        if Thread.isMainThread {
+
+        self.executeOnMain() {
             state = UIApplication.shared.applicationState
-        } else {
-          DispatchQueue.main.sync {
-            state = UIApplication.shared.applicationState
-          }
         }
+        
         switch state {
             case .background:
                 return .background
@@ -149,6 +147,17 @@ class UserStorageProvider: ObservableObject {
                 return .active
             default:
                 return.undefined
+        }
+    }
+    
+    
+    func executeOnMain(execute block: () -> Void) {
+        if Thread.isMainThread {
+            block()
+        } else {
+          DispatchQueue.main.sync {
+            block()
+          }
         }
     }
     
